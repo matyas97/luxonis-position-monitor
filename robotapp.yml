@@ -1,0 +1,15 @@
+url: https://github.com/luxonis/robothub-apps
+name: Gyroscope Logger App
+image: luxonis/imu-app
+version: 1.0.0
+language: python
+description: App for getting gyroscope data from IMU.
+configuration:
+  rate:
+    label: 'Output rate'
+    description: 'How many times in a second to output.'
+    type: 'num-range'
+    step: 1
+    min: 1
+    max: 50
+    default: 1

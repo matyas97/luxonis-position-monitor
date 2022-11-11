@@ -1,0 +1,25 @@
+{
+  "name": "luxonis-position-monitor",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "esbuild src/App.tsx --bundle --watch --outfile=../public/app.js",
+    "build": "esbuild src/App.tsx --bundle --minify --outfile=./public/app.js",
+    "deploy": "npm run build && robothub app push .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "esbuild": "^0.15.13",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.25",
+    "@types/react-dom": "^18.0.8",
+    "typescript": "^4.8.4"
+  }
+}
