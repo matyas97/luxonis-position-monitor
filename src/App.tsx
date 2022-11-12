@@ -1,23 +1,22 @@
 import * as React from 'react';
 import ReactDOM from 'react-dom/client';
 import Camera from './Camera';
+import './styles.css';
 
 const App = () => (
-  <div style={styles.container}>
-    <div>
-      <h1>Luxonis Position Monitor</h1>
-      <p>Check the postition of Oyour AK camera position in space!</p>
+  <>
+    <div style={styles.headingContainer}>
+      <h1>OAK Camera Position Monitor</h1>
     </div>
     <Camera />
-  </div>
+  </>
 );
 
 const styles = {
-  container: {
+  headingContainer: {
     display: 'flex',
-    flexDirection: 'column',
     justifyContent: 'center',
-    alignItems: 'center',
+    color: 'white',
   },
 };
 
