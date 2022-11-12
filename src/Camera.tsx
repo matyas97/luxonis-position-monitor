@@ -11,7 +11,7 @@ interface GyroscopeData {
 
 const Camera = () => {
   const APP_URL = window.location.origin + window.location.pathname;
-  const GYROSCOPE_DATA_URL = APP_URL + 'gyroscope';
+  const GYROSCOPE_DATA_URL = APP_URL + 'position';
 
   const [gyroscopeData, setGyroscopeData] =
     React.useState<GyroscopeData | null>(null);
