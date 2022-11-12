@@ -16,6 +16,10 @@ class Sensor():
 
     def get_data_from_packet(packet: dai.IMUPacket, sensors):
         data = {}
+
+        if dai.IMUSensor.ACCELEROMETER_RAW in sensors:
+            accel = packet.acceleroMeter
+            data["accelerometer"] = {"x": accel.x, "y": accel.y, "z": accel.z}
         
         if dai.IMUSensor.GYROSCOPE_RAW in sensors:
             gyro = packet.gyroscope
@@ -28,6 +32,7 @@ class Sensor():
 
 class IMUApp(App):
     gyroscope_data: any
+    accelerometer_data: any
 
     def __init__(self):
         print("Initializing app step 1...")
@@ -36,6 +41,8 @@ class IMUApp(App):
         self.gyroscope_data = None
 
         router.route("/gyroscope")(self.get_gyroscope_data)
+        router.route("/accelerometer")(self.get_accelerometer_data)
+        router.route("/position")(self.get_position_data)
 
     def on_initialize(self, unused_devices):
         print("Initializing app step 2...")
@@ -73,11 +80,22 @@ class IMUApp(App):
             if secs - self.last_secs >= 1/self.rate:
                 self.last_secs = secs
                 data = Sensor.get_data_from_packet(packet, self.sensors)
+                self.accelerometer_data = data["accelerometer"]
                 self.gyroscope_data = data["gyroscope"]
                 print(data)
 
+    def get_accelerometer_data(self, request: Request):
+        return self.accelerometer_data
+
     def get_gyroscope_data(self, request: Request):
         return self.gyroscope_data
+
+    def get_position_data(self, request: Request):
+        return {
+            "x": self.gyroscope_data["x"] * self.accelerometer_data["x"], 
+            "y": self.gyroscope_data["y"] * self.accelerometer_data["y"], 
+            "z": self.gyroscope_data["z"] * self.accelerometer_data["z"]
+            }
 
 app = IMUApp()
 app.run()
