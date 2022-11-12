@@ -28,7 +28,7 @@ const Camera = () => {
           setGyroscopeData(data);
         });
       });
-    }, 100);
+    }, 1000);
 
     return () => clearInterval(interval);
   }, []);
